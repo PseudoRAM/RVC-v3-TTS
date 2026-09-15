@@ -1,6 +1,5 @@
 """Cog entry point. Worker state survives warm predictions."""
-from cog import BasePredictor, Input, Path
-from pydantic import BaseModel
+from cog import BaseRunner, BaseModel, Input, Path
 from pipeline import Pipeline, Request
 
 class Output(BaseModel):
@@ -8,11 +7,11 @@ class Output(BaseModel):
     source: Path
     metrics: Path
 
-class Predictor(BasePredictor):
+class Predictor(BaseRunner):
     def setup(self):
         self.pipeline = Pipeline(rvc_python='/opt/rvc/bin/python')
 
-    def predict(self, text: str = Input(description='English text, 1–3000 characters. Newlines add pauses.'),
+    def run(self, text: str = Input(description='English text, 1–3000 characters. Newlines add pauses.'),
                 voice: str = Input(description='English RVC target: VCTK226 (male) or VCTK231 (female).', choices=['VCTK226', 'VCTK231']),
                 source_voice: str = Input(default='af_heart', description='English Kokoro source voice. Use am_michael for VCTK226 or af_heart for VCTK231.'),
                 speed: float = Input(default=1.0, ge=.5, le=2.0, description='TTS speed: 1 is normal; lower values are slower.'),

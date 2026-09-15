@@ -2,7 +2,7 @@
 
 [Public source](https://github.com/PseudoRAM/RVC-v3-TTS) | [Private Replicate model: TTS RVC](https://replicate.com/pseudoram/tts-rvc)
 
-The Replicate model page is configured; a TTS Cog version has not been pushed yet.
+The Replicate model is private. See its Versions tab for published releases.
 
 **Text -> Kokoro speech -> RVC voice conversion -> downloadable WAV.**
 This project takes text. It has no recorded-audio input examples or upload workflow.
@@ -57,7 +57,7 @@ export RVC_PYTHON="$PWD/.venv-rvc/bin/python"
 On Windows use `Scripts/python.exe` in place of `bin/python`. The tested local TTS environment
 is Python 3.11.9; RVC uses the existing Python 3.9.13 interpreter without modifying its packages.
 The source RVC project is read-only. Its two VCTK checkpoints were copied and verified by SHA256.
-Fresh Linux installation is not yet validated. The Windows TTS snapshot is
+The Linux GPU Cog container is validated; a separate manual Linux setup is not yet tested. The Windows TTS snapshot is
 `requirements-tts-windows.lock`, not a cross-platform lock.
 
 ## Performance and tests
@@ -80,12 +80,12 @@ queueing, network transfer or machine-cold benchmark is implied.
 ## Replicate / release packaging
 
 `predict.py` takes text and returns converted speech, its generated TTS source and metrics.
-`cog.yaml` keeps a separate legacy RVC environment. Download weights before building.
+`cog.yaml` keeps a separate legacy RVC environment. Use Cog 0.22 or later and download weights before building.
 `.dockerignore` allows the shared models and the two named VCTK checkpoints/indexes and their notices;
 other target directories remain excluded.
 
 ```sh
-cog predict -i text="Hello, this began as text." -i voice=VCTK231
+cog run -i text="Hello, this began as text." -i voice=VCTK231
 cog push r8.im/pseudoram/tts-rvc
 python scripts/package_source.py
 python scripts/package_source.py --include-examples
@@ -95,7 +95,9 @@ The source ZIP excludes weights and audio. The with-examples ZIP adds exactly tw
 TTS source / RVC output pairs, with settings, hashes and credits. Neither includes human
 input recordings. Both exclude historical private assets and environments.
 
-Docker/Cog build and T4 execution remain unverified; no cloud deployment was performed.
+The Cog 0.22 GPU image passes both English voice smoke tests and a full Cog request returning
+speech, source and metrics. Local container outputs were finite, non-silent 40 kHz WAVs with no clipped samples.
+Replicate T4 execution is tracked separately from these local tests.
 Local 4090 timings are not T4 costs. See [research and cost assumptions](RESEARCH.md).
 
 ## Permissions
