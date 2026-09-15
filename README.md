@@ -97,7 +97,7 @@ input recordings. Both exclude historical private assets and environments.
 
 The Cog 0.22 GPU image passes both English voice smoke tests and a full Cog request returning
 speech, source and metrics. Local container outputs were finite, non-silent 40 kHz WAVs with no clipped samples.
-Replicate T4 execution is tracked separately from these local tests.
+See the [deployment verification record](docs/DEPLOYMENT.md). Replicate T4 execution is tracked separately from these local tests.
 Local 4090 timings are not T4 costs. See [research and cost assumptions](RESEARCH.md).
 
 ## Permissions
