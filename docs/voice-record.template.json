@@ -1,0 +1,16 @@
+{
+  "voice_id": "MyVoice",
+  "author": null,
+  "source_url": null,
+  "source_revision": null,
+  "checkpoint_sha256": null,
+  "weight_license": null,
+  "training_data_source": null,
+  "training_data_license": null,
+  "speaker_permission_evidence": null,
+  "commercial_hosting_basis": null,
+  "redistribution_basis": null,
+  "required_attribution": null,
+  "restrictions": null,
+  "status": "not-reviewed"
+}

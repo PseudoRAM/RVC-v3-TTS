@@ -1,0 +1,100 @@
+from multiprocessing import cpu_count
+from pathlib import Path
+
+import torch
+from fairseq import checkpoint_utils
+from scipy.io import wavfile
+
+from infer_pack.models import (
+    SynthesizerTrnMs256NSFsid,
+    SynthesizerTrnMs256NSFsid_nono,
+    SynthesizerTrnMs768NSFsid,
+    SynthesizerTrnMs768NSFsid_nono,
+)
+from my_utils import load_audio
+from vc_infer_pipeline import VC
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+class Config:
+    def __init__(self, device, is_half):
+        self.device = device
+        self.is_half = is_half
+        self.n_cpu = 0
+        self.gpu_name = None
+        self.gpu_mem = None
+        self.x_pad, self.x_query, self.x_center, self.x_max = self.device_config()
+
+    def device_config(self) -> tuple:
+        self.n_cpu = cpu_count()
+        if self.device.startswith("cuda") and torch.cuda.is_available():
+            index = int(self.device.split(":")[-1])
+            self.gpu_name = torch.cuda.get_device_name(index)
+            self.gpu_mem = torch.cuda.get_device_properties(index).total_memory / 1024**3
+        else:
+            self.device = "cpu"
+            self.is_half = False
+        if self.gpu_mem is not None and self.gpu_mem <= 4:
+            return 1, 5, 30, 32
+        return (3, 10, 60, 65) if self.is_half else (1, 6, 38, 41)
+
+
+def load_hubert(device, is_half, model_path):
+    models, saved_cfg, task = checkpoint_utils.load_model_ensemble_and_task([model_path], suffix='', )
+    hubert = models[0]
+    hubert = hubert.to(device)
+
+    if is_half:
+        hubert = hubert.half()
+    else:
+        hubert = hubert.float()
+
+    hubert.eval()
+    return hubert
+
+
+def get_vc(device, is_half, config, model_path):
+    cpt = torch.load(model_path, map_location='cpu')
+    if "config" not in cpt or "weight" not in cpt:
+        raise ValueError(f'Incorrect format for {model_path}. Use a voice model trained using RVC v2 instead.')
+
+    tgt_sr = cpt["config"][-1]
+    cpt["config"][-3] = cpt["weight"]["emb_g.weight"].shape[0]
+    if_f0 = cpt.get("f0", 1)
+    version = cpt.get("version", "v1")
+
+    if version == "v1":
+        if if_f0 == 1:
+            net_g = SynthesizerTrnMs256NSFsid(*cpt["config"], is_half=is_half)
+        else:
+            net_g = SynthesizerTrnMs256NSFsid_nono(*cpt["config"])
+    elif version == "v2":
+        if if_f0 == 1:
+            net_g = SynthesizerTrnMs768NSFsid(*cpt["config"], is_half=is_half)
+        else:
+            net_g = SynthesizerTrnMs768NSFsid_nono(*cpt["config"])
+
+    if version not in ("v1", "v2"):
+        raise ValueError(f"Unsupported voice checkpoint version: {version}")
+
+    del net_g.enc_q
+    print(net_g.load_state_dict(cpt["weight"], strict=False))
+    net_g.eval().to(device)
+
+    if is_half:
+        net_g = net_g.half()
+    else:
+        net_g = net_g.float()
+
+    vc = VC(tgt_sr, config)
+    # Only inference metadata is needed; release the duplicate CPU weights.
+    return {"f0": if_f0}, version, net_g, tgt_sr, vc
+
+
+def rvc_infer(index_path, index_rate, input_path, output_path, pitch_change, f0_method, cpt, version, net_g, filter_radius, tgt_sr, rms_mix_rate, protect, crepe_hop_length, vc, hubert_model):
+    audio = load_audio(input_path, 16000)
+    times = [0, 0, 0]
+    if_f0 = cpt.get('f0', 1)
+    audio_opt = vc.pipeline(hubert_model, net_g, 0, audio, input_path, times, pitch_change, f0_method, index_path, index_rate, if_f0, filter_radius, tgt_sr, 0, rms_mix_rate, version, protect, crepe_hop_length)
+    wavfile.write(output_path, tgt_sr, audio_opt)

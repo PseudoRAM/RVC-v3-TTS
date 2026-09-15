@@ -1,0 +1,245 @@
+{
+  "scope": "text -> Kokoro -> RVC, no recorded audio input",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "tts_python": "3.11.9",
+  "rvc_python": "Python 3.9.13 (local compatible RVC environment)",
+  "tts_provider": "CPUExecutionProvider",
+  "tts_threads": 4,
+  "cases": [
+    {
+      "name": "vctk226",
+      "voice": "VCTK226",
+      "runs": [
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK226",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.3756298999996943,
+          "rvc_and_copy_seconds": 1.5674111999996967,
+          "total_seconds": 2.943041099999391,
+          "source_duration_seconds": 7.338666666666667,
+          "duration_seconds": 7.32,
+          "rtf": 0.402054795081884,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.057013409476816705,
+          "peak": 0.450927734375,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK226",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.249826799999937,
+          "rvc_and_copy_seconds": 0.5205026000003272,
+          "total_seconds": 1.7703294000002643,
+          "source_duration_seconds": 7.317333333333333,
+          "duration_seconds": 7.3,
+          "rtf": 0.242510876712365,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.056974183180287435,
+          "peak": 0.454833984375,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK226",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.3220668999992995,
+          "rvc_and_copy_seconds": 0.42181970000001456,
+          "total_seconds": 1.743886599999314,
+          "source_duration_seconds": 7.317333333333333,
+          "duration_seconds": 7.3,
+          "rtf": 0.2388885753423718,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05694391744690956,
+          "peak": 0.45611572265625,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK226",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.2914525000005597,
+          "rvc_and_copy_seconds": 0.5724141999999119,
+          "total_seconds": 1.8638667000004716,
+          "source_duration_seconds": 7.317333333333333,
+          "duration_seconds": 7.3,
+          "rtf": 0.2553242054795167,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05702832112597148,
+          "peak": 0.45697021484375,
+          "clipped_samples": 0
+        }
+      ],
+      "warm_median_seconds": 1.7703294000002643,
+      "audio": {
+        "source": {
+          "path": "examples/audio/vctk226-source.wav",
+          "sha256": "8b66b841c69f4c550ac5c82112df35a4574a757feb1ce0d6e29d1b4cf3c77559"
+        },
+        "speech": {
+          "path": "examples/audio/vctk226-speech.wav",
+          "sha256": "dbc0607bf212f43c9003b3be7fb96ccc5e6c7ec81ec0898d3723a53ba1878e7d"
+        }
+      }
+    },
+    {
+      "name": "vctk231",
+      "voice": "VCTK231",
+      "runs": [
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK231",
+            "source_voice": "af_heart",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.1059866999994483,
+          "rvc_and_copy_seconds": 0.8262130000002799,
+          "total_seconds": 1.9321996999997282,
+          "source_duration_seconds": 6.485333333333333,
+          "duration_seconds": 6.48,
+          "rtf": 0.29817896604934074,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.06395689674034523,
+          "peak": 0.49310302734375,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK231",
+            "source_voice": "af_heart",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.085622599999624,
+          "rvc_and_copy_seconds": 0.3974059000001944,
+          "total_seconds": 1.4830284999998185,
+          "source_duration_seconds": 6.485333333333333,
+          "duration_seconds": 6.48,
+          "rtf": 0.22886242283947814,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.0635679626344031,
+          "peak": 0.495819091796875,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK231",
+            "source_voice": "af_heart",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.0910694000003787,
+          "rvc_and_copy_seconds": 0.4640521000001172,
+          "total_seconds": 1.5551215000004959,
+          "source_duration_seconds": 6.485333333333333,
+          "duration_seconds": 6.48,
+          "rtf": 0.23998788580254565,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.06369807663731748,
+          "peak": 0.489349365234375,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Hello, and welcome! This speech began as text. Let us take a moment to listen, then try a different voice.",
+            "voice": "VCTK231",
+            "source_voice": "af_heart",
+            "speed": 1.0,
+            "pitch": 0,
+            "pause_ms": 180,
+            "use_index": true
+          },
+          "tts_seconds": 1.3194442000003619,
+          "rvc_and_copy_seconds": 0.3972513999997318,
+          "total_seconds": 1.7166956000000937,
+          "source_duration_seconds": 6.485333333333333,
+          "duration_seconds": 6.48,
+          "rtf": 0.2649221604938416,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.0638601197609176,
+          "peak": 0.478607177734375,
+          "clipped_samples": 0
+        }
+      ],
+      "warm_median_seconds": 1.5551215000004959,
+      "audio": {
+        "source": {
+          "path": "examples/audio/vctk231-source.wav",
+          "sha256": "a60d4e848a81e1675fb6825d91bafea5f94e038432e7c0fd685fc3c84c1caa7d"
+        },
+        "speech": {
+          "path": "examples/audio/vctk231-speech.wav",
+          "sha256": "70dc362ed0f675e5e8ae2829fbda88d88d606eb9c0f878c5488a0492d4517c75"
+        }
+      }
+    }
+  ],
+  "setup_seconds": 5.0504799000000276,
+  "tts_setup_seconds": 1.18777929999942,
+  "setup_plus_first_request_seconds": 7.993520999999419,
+  "target_provenance": {
+    "VCTK226": {
+      "index_sha256": "1325e08293a3a18df46f0d2288296b0788aedb36ebb28962aaec6cce64005341",
+      "filename": "Mp226rmvpe.pth",
+      "sha256": "0a1d55e17cf08c922596710e58a0862cb54c8ea2ab037a5fc1f85c5f08ab4b18",
+      "license": "Apache-2.0",
+      "publisher": "https://huggingface.co/Nekochu/RVC-VCTK_Voice-sample",
+      "revision": "005c2f948ee9dafd7e3aa7f261b4c3a24beebeef",
+      "f0": true,
+      "sample_rate": 40000
+    },
+    "VCTK231": {
+      "index_sha256": "14c3a6fb421ed0c77654bb9ed5778307ff0204d7b047b6bbe37922af42f601ab",
+      "filename": "Fp231rmvpe.pth",
+      "sha256": "12f819e129c6e48779439e491b85593b8819d094f751c3515ea13be6bd8b5a59",
+      "license": "Apache-2.0",
+      "publisher": "https://huggingface.co/Nekochu/RVC-VCTK_Voice-sample",
+      "revision": "005c2f948ee9dafd7e3aa7f261b4c3a24beebeef",
+      "f0": true,
+      "sample_rate": 40000
+    }
+  }
+}
