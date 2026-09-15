@@ -15,7 +15,7 @@ with Pipeline('/opt/rvc/bin/python') as pipeline:
     for voice, source in [('VCTK226','am_michael'), ('VCTK231','af_heart')]:
         folder, metrics = pipeline.run(Request(
             'Hello! This is a test of our text to speech voice conversion.', voice, source,
-            speed=1.05, use_index=True))
+            speed=1.05, pitch=0, use_index=True, index_rate=0.5))
         assert metrics['finite'] and metrics['rms'] > 1e-5
         assert metrics['sample_rate'] == 40000
         print(json.dumps({'output':str(folder), **metrics}), flush=True)

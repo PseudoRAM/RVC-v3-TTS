@@ -13,6 +13,8 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / 'vendor/rvc-v3/src'))
+from defaults import PITCH_CHANGE, INDEX_RATE, USE_INDEX
 
 @dataclass
 class Request:
@@ -20,9 +22,10 @@ class Request:
     voice: str = ''
     source_voice: str = 'af_heart'
     speed: float = 1.0
-    pitch: int = 0
+    pitch: int = PITCH_CHANGE
     pause_ms: int = 180
-    use_index: bool = False
+    use_index: bool = USE_INDEX
+    index_rate: float = INDEX_RATE
 
     def validate(self):
         if not isinstance(self.text, str) or not self.text.strip() or len(self.text) > 3000:
@@ -31,6 +34,8 @@ class Request:
             raise ValueError('Speed must be 0.5–2.0')
         if not -24 <= self.pitch <= 24 or not 0 <= self.pause_ms <= 2000:
             raise ValueError('Pitch must be -24–24; pause must be 0–2000 ms')
+        if not math.isfinite(self.index_rate) or not 0 <= self.index_rate <= 1:
+            raise ValueError('Index rate must be 0–1')
         if not re.fullmatch(r'[A-Za-z0-9_-]+', self.voice):
             raise ValueError('Invalid RVC voice name')
         if not re.fullmatch(r'[ab][fm]_[a-z]+', self.source_voice):
@@ -60,6 +65,7 @@ class Pipeline:
             ready = self._response()
             if not ready.get('ready'):
                 raise RuntimeError(f'RVC startup failed: {ready}')
+            self.rvc_setup_seconds = ready['setup_seconds']
         except Exception:
             self.close()
             raise
@@ -97,7 +103,8 @@ class Pipeline:
             sf.write(source_path, source, sr, subtype='PCM_16')
             tts_done = time.perf_counter()
             self.worker.stdin.write(json.dumps({'input_audio': str(source_path), 'rvc_model': request.voice,
-                'pitch_change': request.pitch, 'use_index': request.use_index})+'\n')
+                'pitch_change': request.pitch, 'use_index': request.use_index,
+                'index_rate': request.index_rate})+'\n')
             self.worker.stdin.flush()
             converted = Path(self._response()['path'])
             try:

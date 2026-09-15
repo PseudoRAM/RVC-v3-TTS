@@ -31,7 +31,10 @@ Each CLI result identifies a folder with `source.wav` (generated Kokoro speech),
 - `--source-voice af_heart`: English female Kokoro source, suitable for VCTK231. Use `am_michael` for VCTK226.
 - `--speed 0.5..2`: native TTS pace. 1 is normal; lower is slower.
 - Punctuation guides delivery; newlines split speech, with `--pause-ms 0..2000` between segments.
-- Both VCTK models support `--pitch -24..24` and `--use-index`. Start at zero shift with a matching source; the examples enable retrieval at rate 0.5.
+- Conversion defaults now match RVCV3: **pitch +4 semitones, retrieval enabled when available, index rate 0.75**. RMVPE, protect 0.33 and RMS mix 0.25 are unchanged.
+- Use `--pitch -24..24`, `--index-rate 0..1`, and `--no-use-index` to override the preset. `--pitch 0 --no-use-index` restores the old no-index behavior. These defaults were selected by listening to low-pitched narration; TTS source voices can need different shifts.
+- Historical VCTK examples retain explicit pitch 0 and index rate 0.5. The generated Kokoro source voice and speed remain independently adjustable.
+- [David Goggins generation benchmark](docs/TTS_GOGGINS_BENCHMARK.md) includes generated source/converted pairs and separate TTS/RVC timings.
 
 Kokoro does not offer semantic emotion or laughter tags. Delivery depends on source voice,
 punctuation and pace. RVC changes the source timbre; it does not add missing acted emotion.
@@ -56,7 +59,7 @@ export RVC_PYTHON="$PWD/.venv-rvc/bin/python"
 
 On Windows use `Scripts/python.exe` in place of `bin/python`. The tested local TTS environment
 is Python 3.11.9; RVC uses the existing Python 3.9.13 interpreter without modifying its packages.
-The source RVC project is read-only. Its two VCTK checkpoints were copied and verified by SHA256.
+The vendored RVC service and shared defaults are synchronized with the RVCV3 project. Its two VCTK checkpoints were copied and verified by SHA256.
 The Linux GPU Cog container is validated; a separate manual Linux setup is not yet tested. The Windows TTS snapshot is
 `requirements-tts-windows.lock`, not a cross-platform lock.
 

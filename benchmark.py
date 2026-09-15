@@ -25,7 +25,7 @@ def main():
         report['setup_seconds'] = pipeline.setup_seconds
         report['tts_setup_seconds'] = pipeline.tts_setup_seconds
         for label, voice, source in [('vctk226','VCTK226','am_michael'), ('vctk231','VCTK231','af_heart')]:
-            request = Request(text, voice, source, 1.0, 0, 180, True)
+            request = Request(text, voice, source, 1.0, 0, 180, True, index_rate=0.5)
             results=[]
             for i in range(args.runs):
                 folder, metrics = pipeline.run(request, run_root/f'{label}-{i}')

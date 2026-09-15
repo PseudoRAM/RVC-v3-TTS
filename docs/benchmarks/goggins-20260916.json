@@ -1,0 +1,436 @@
+{
+  "scope": "Local text -> Kokoro CPU ONNX -> RVC GPU, not a hosted or machine-cold benchmark",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "tts_python": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "tts_provider": "CPUExecutionProvider",
+  "tts_threads": 4,
+  "runs_per_case": 3,
+  "case_order": [
+    "short-michael",
+    "medium-michael",
+    "long-michael",
+    "medium-adam"
+  ],
+  "notes": "First means first request for that case in one persistent process. Warm median excludes that request. No audio response cache.",
+  "cases": [
+    {
+      "slug": "short-michael",
+      "title": "Short / Michael",
+      "request": {
+        "text": "Start with one small task. Give it your full attention, finish it properly, and then take the next step.",
+        "voice": "DavidGoggins",
+        "source_voice": "am_michael",
+        "speed": 1.0,
+        "pitch": 4,
+        "pause_ms": 180,
+        "use_index": true,
+        "index_rate": 0.75
+      },
+      "runs": [
+        {
+          "request": {
+            "text": "Start with one small task. Give it your full attention, finish it properly, and then take the next step.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 2.2874162000007345,
+          "rvc_and_copy_seconds": 1.6772952000028454,
+          "total_seconds": 3.96471140000358,
+          "source_duration_seconds": 6.613333333333333,
+          "duration_seconds": 6.6,
+          "rtf": 0.6007138484853909,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.057770464489815446,
+          "peak": 0.455902099609375,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Start with one small task. Give it your full attention, finish it properly, and then take the next step.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 1.268104199996742,
+          "rvc_and_copy_seconds": 0.9301579000020865,
+          "total_seconds": 2.1982620999988285,
+          "source_duration_seconds": 6.592,
+          "duration_seconds": 6.58,
+          "rtf": 0.33408238601805906,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05789195176602804,
+          "peak": 0.47174072265625,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Start with one small task. Give it your full attention, finish it properly, and then take the next step.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 1.3109130000011646,
+          "rvc_and_copy_seconds": 0.5178134000016144,
+          "total_seconds": 1.828726400002779,
+          "source_duration_seconds": 6.592,
+          "duration_seconds": 6.58,
+          "rtf": 0.27792194528917613,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.058033570623462614,
+          "peak": 0.470062255859375,
+          "clipped_samples": 0
+        }
+      ],
+      "first_seconds": 3.96471140000358,
+      "warm_median_seconds": 2.0134942500008037,
+      "warm_tts_median_seconds": 1.2895085999989533,
+      "warm_rvc_median_seconds": 0.7239856500018504,
+      "duration_seconds": 6.6,
+      "warm_median_rtf": 0.3060021656536176,
+      "audio": {
+        "source": {
+          "path": "short-michael-0/source.wav",
+          "sha256": "cc1b491cff136511c1c7dccc48ecee69f45b3cba48168cbafa6c7c34e0eda29a"
+        },
+        "speech": {
+          "path": "short-michael-0/speech.wav",
+          "sha256": "9d6cbf4c4aee52b7095fe3a0a766df3b5fbfaeab0d64bd137392e010abc7c21a"
+        }
+      }
+    },
+    {
+      "slug": "medium-michael",
+      "title": "Medium / Michael",
+      "request": {
+        "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+        "voice": "DavidGoggins",
+        "source_voice": "am_michael",
+        "speed": 1.0,
+        "pitch": 4,
+        "pause_ms": 180,
+        "use_index": true,
+        "index_rate": 0.75
+      },
+      "runs": [
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 3.250312300006044,
+          "rvc_and_copy_seconds": 1.0599384999950416,
+          "total_seconds": 4.310250800001086,
+          "source_duration_seconds": 17.216,
+          "duration_seconds": 17.2,
+          "rtf": 0.25059597674424916,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05503244521873934,
+          "peak": 0.53521728515625,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 3.2447702999998,
+          "rvc_and_copy_seconds": 0.6338623999981792,
+          "total_seconds": 3.878632699997979,
+          "source_duration_seconds": 17.216,
+          "duration_seconds": 17.2,
+          "rtf": 0.2255019011626732,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05504783622509806,
+          "peak": 0.534698486328125,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 3.187625200000184,
+          "rvc_and_copy_seconds": 0.5805340000006254,
+          "total_seconds": 3.7681592000008095,
+          "source_duration_seconds": 17.216,
+          "duration_seconds": 17.2,
+          "rtf": 0.21907902325586104,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05507984116703279,
+          "peak": 0.5224609375,
+          "clipped_samples": 0
+        }
+      ],
+      "first_seconds": 4.310250800001086,
+      "warm_median_seconds": 3.8233959499993944,
+      "warm_tts_median_seconds": 3.216197749999992,
+      "warm_rvc_median_seconds": 0.6071981999994023,
+      "duration_seconds": 17.2,
+      "warm_median_rtf": 0.22229046220926713,
+      "audio": {
+        "source": {
+          "path": "medium-michael-0/source.wav",
+          "sha256": "91127bf1dcf5d78a1f8722cce46cae6667e237de50c50fd237eb94876b071fe3"
+        },
+        "speech": {
+          "path": "medium-michael-0/speech.wav",
+          "sha256": "876b87248f7dd9d2b8a47c86c2e26013290b5fe008dbfadcbb47ec2f7cb1da18"
+        }
+      }
+    },
+    {
+      "slug": "long-michael",
+      "title": "Long / Michael",
+      "request": {
+        "text": "Some days, everything feels easy. On other days, even getting started takes effort. That is when a simple routine helps. Decide what matters, prepare your space, and begin before you feel completely ready.\nYou do not have to solve the whole problem in one sitting. Work through the first part, check what you have learned, and adjust your approach. If you make a mistake, use it as information rather than a reason to stop.\nAt the end of the day, look back at the work you actually completed. Keep what helped, change what did not, and leave yourself a clear starting point for tomorrow.",
+        "voice": "DavidGoggins",
+        "source_voice": "am_michael",
+        "speed": 1.0,
+        "pitch": 4,
+        "pause_ms": 180,
+        "use_index": true,
+        "index_rate": 0.75
+      },
+      "runs": [
+        {
+          "request": {
+            "text": "Some days, everything feels easy. On other days, even getting started takes effort. That is when a simple routine helps. Decide what matters, prepare your space, and begin before you feel completely ready.\nYou do not have to solve the whole problem in one sitting. Work through the first part, check what you have learned, and adjust your approach. If you make a mistake, use it as information rather than a reason to stop.\nAt the end of the day, look back at the work you actually completed. Keep what helped, change what did not, and leave yourself a clear starting point for tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 6.768798299999617,
+          "rvc_and_copy_seconds": 0.8718951999981073,
+          "total_seconds": 7.640693499997724,
+          "source_duration_seconds": 37.224,
+          "duration_seconds": 37.2,
+          "rtf": 0.2053949865590786,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.055470099729834084,
+          "peak": 0.461456298828125,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Some days, everything feels easy. On other days, even getting started takes effort. That is when a simple routine helps. Decide what matters, prepare your space, and begin before you feel completely ready.\nYou do not have to solve the whole problem in one sitting. Work through the first part, check what you have learned, and adjust your approach. If you make a mistake, use it as information rather than a reason to stop.\nAt the end of the day, look back at the work you actually completed. Keep what helped, change what did not, and leave yourself a clear starting point for tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 6.887950399999681,
+          "rvc_and_copy_seconds": 0.9039967999997316,
+          "total_seconds": 7.791947199999413,
+          "source_duration_seconds": 37.202666666666666,
+          "duration_seconds": 37.18,
+          "rtf": 0.20957362022591214,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05543582208500736,
+          "peak": 0.5205078125,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "Some days, everything feels easy. On other days, even getting started takes effort. That is when a simple routine helps. Decide what matters, prepare your space, and begin before you feel completely ready.\nYou do not have to solve the whole problem in one sitting. Work through the first part, check what you have learned, and adjust your approach. If you make a mistake, use it as information rather than a reason to stop.\nAt the end of the day, look back at the work you actually completed. Keep what helped, change what did not, and leave yourself a clear starting point for tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_michael",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 6.7788119000033475,
+          "rvc_and_copy_seconds": 0.7364116000026115,
+          "total_seconds": 7.515223500005959,
+          "source_duration_seconds": 37.224,
+          "duration_seconds": 37.2,
+          "rtf": 0.20202213709693437,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.05547238089216756,
+          "peak": 0.502410888671875,
+          "clipped_samples": 0
+        }
+      ],
+      "first_seconds": 7.640693499997724,
+      "warm_median_seconds": 7.653585350002686,
+      "warm_tts_median_seconds": 6.8333811500015145,
+      "warm_rvc_median_seconds": 0.8202042000011716,
+      "duration_seconds": 37.2,
+      "warm_median_rtf": 0.20579787866142324,
+      "audio": {
+        "source": {
+          "path": "long-michael-0/source.wav",
+          "sha256": "fdfdf0342b99c2278008e6758c07572516842222699cc3b3cfc27818b590117a"
+        },
+        "speech": {
+          "path": "long-michael-0/speech.wav",
+          "sha256": "38dcf33dfc9638e19f466ace81a9a803f4d0241feb8a948c5362b1f714719c1e"
+        }
+      }
+    },
+    {
+      "slug": "medium-adam",
+      "title": "Medium / Adam",
+      "request": {
+        "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+        "voice": "DavidGoggins",
+        "source_voice": "am_adam",
+        "speed": 1.0,
+        "pitch": 4,
+        "pause_ms": 180,
+        "use_index": true,
+        "index_rate": 0.75
+      },
+      "runs": [
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_adam",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 2.5921662999971886,
+          "rvc_and_copy_seconds": 0.7384803000022657,
+          "total_seconds": 3.3306465999994543,
+          "source_duration_seconds": 14.634666666666666,
+          "duration_seconds": 14.62,
+          "rtf": 0.2278144049247233,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.09655190202639573,
+          "peak": 0.682403564453125,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_adam",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 2.726360599997861,
+          "rvc_and_copy_seconds": 0.6186986999964574,
+          "total_seconds": 3.3450592999943183,
+          "source_duration_seconds": 14.634666666666666,
+          "duration_seconds": 14.62,
+          "rtf": 0.22880022571780564,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.09641305818656584,
+          "peak": 0.69073486328125,
+          "clipped_samples": 0
+        },
+        {
+          "request": {
+            "text": "When a plan feels overwhelming, make the next step smaller. Choose one useful thing you can finish today. Put your phone aside, take a breath, and give yourself ten focused minutes. Progress does not need to be dramatic. It needs to be something you can repeat tomorrow.",
+            "voice": "DavidGoggins",
+            "source_voice": "am_adam",
+            "speed": 1.0,
+            "pitch": 4,
+            "pause_ms": 180,
+            "use_index": true,
+            "index_rate": 0.75
+          },
+          "tts_seconds": 2.6281949000040186,
+          "rvc_and_copy_seconds": 0.5699577999985195,
+          "total_seconds": 3.198152700002538,
+          "source_duration_seconds": 14.634666666666666,
+          "duration_seconds": 14.62,
+          "rtf": 0.2187518946650163,
+          "sample_rate": 40000,
+          "finite": true,
+          "rms": 0.09650432112099475,
+          "peak": 0.7216796875,
+          "clipped_samples": 0
+        }
+      ],
+      "first_seconds": 3.3306465999994543,
+      "warm_median_seconds": 3.271605999998428,
+      "warm_tts_median_seconds": 2.6772777500009397,
+      "warm_rvc_median_seconds": 0.5943282499974885,
+      "duration_seconds": 14.62,
+      "warm_median_rtf": 0.22377606019141097,
+      "audio": {
+        "source": {
+          "path": "medium-adam-0/source.wav",
+          "sha256": "49daf3891e5afc4fe24e235f0111a0259c772cd2f60b942b59e73eba87b9eea4"
+        },
+        "speech": {
+          "path": "medium-adam-0/speech.wav",
+          "sha256": "f3327e561f3bee73dccb07d439a5d77db0b6bca4ea6346ddb0456374872e8e12"
+        }
+      }
+    }
+  ],
+  "setup_seconds": 5.078633400000399,
+  "tts_setup_seconds": 1.2014338999942993,
+  "rvc_worker_setup_seconds": 3.8282154999999998,
+  "startup_including_imports_seconds": 5.147749000003387,
+  "model_assets": {
+    "added_IVF1079_Flat_nprobe_1_DavidGoggings_v2.index": "01403a6f09aadd23f9360cf03ac7f3e2060f0555ffd1c8e330f8bc1ee0de4ae3",
+    "DavidGoggings.pth": "b8e9fb8cc9be9aa497de211b3a91a1eb140ae4142a1d0ff0076cbce7bdcd7d3a"
+  },
+  "setup_plus_first_request_seconds": 9.043344800003979,
+  "hardware": {
+    "rvc_gpu": "NVIDIA GeForce RTX 4090",
+    "rvc_torch": "2.0.1+cu118",
+    "rvc_python": "3.9.13",
+    "tts_onnxruntime": "1.30.0"
+  }
+}

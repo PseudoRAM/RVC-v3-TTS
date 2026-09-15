@@ -3,10 +3,10 @@ from pipeline import Request
 
 class Validation(unittest.TestCase):
     def test_aiso_controls(self):
-        Request('Hello', voice='AisoHowatto').validate()
+        Request('Hello', voice='AisoHowatto', pitch=0, use_index=False).validate()
         for options in ({'pitch':3}, {'use_index':True}):
             with self.assertRaises(ValueError):
-                Request('Hello', voice='AisoSittori', **options).validate()
+                Request('Hello', voice='AisoSittori', **({'pitch':0, 'use_index':False} | options)).validate()
     def test_no_implicit_target_voice(self):
         with self.assertRaises(ValueError): Request('Hello').validate()
     def test_empty_and_long_text(self):

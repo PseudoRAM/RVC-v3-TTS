@@ -9,7 +9,7 @@ ROOT_FILES = ['.gitignore', '.dockerignore', 'README.md', 'RESEARCH.md', 'LICENS
               'predict.py', 'cog.yaml', 'requirements.txt', 'requirements-rvc.txt',
               'requirements-tts-windows.lock', 'examples/README.md', 'examples/licenses/APACHE-2.0.txt', 'examples/licenses/VCTK-CC-BY-4.0.txt', 'examples/licenses/VCTK-model-card.md',
               'examples/manifest.json', 'docs/ASSET_PERMISSIONS.md', 
-              'docs/voice-record.template.json', 'vendor/rvc-v3/LICENSE', 'vendor/KOKORO-ONNX-LICENSE']
+              'docs/voice-record.template.json', 'docs/TTS_GOGGINS_BENCHMARK.md', 'docs/benchmarks/goggins-20260916.json', 'vendor/rvc-v3/UPSTREAM.md', 'vendor/rvc-v3/LICENSE', 'vendor/KOKORO-ONNX-LICENSE']
 EXAMPLE_FILES = ['examples/audio/'+name+'.wav' for name in ('vctk226-source','vctk226-speech','vctk231-source','vctk231-speech')]
 
 def main():

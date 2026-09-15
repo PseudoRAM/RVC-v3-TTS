@@ -8,6 +8,7 @@ import threading
 import time
 
 from model_cache import DownloadCache, ModelCache, model_files
+from defaults import PITCH_CHANGE, INDEX_RATE, USE_INDEX
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -29,9 +30,9 @@ class VoiceService:
         print(json.dumps({"event": "setup", "seconds": time.perf_counter() - started}))
 
     def convert(self, input_audio, rvc_model="CUSTOM", custom_url=None, refresh=False,
-                pitch_change=0, index_rate=0.5, filter_radius=3, rms_mix_rate=0.25,
+                pitch_change=PITCH_CHANGE, index_rate=INDEX_RATE, filter_radius=3, rms_mix_rate=0.25,
                 protect=0.33, f0_method="rmvpe", crepe_hop_length=160,
-                output_format="wav", use_index=False):
+                output_format="wav", use_index=USE_INDEX):
         import torch
         from rvc import get_vc, rvc_infer
 

@@ -1,19 +1,25 @@
 import argparse
 import json
-from pipeline import Pipeline, Request
+from pipeline import Pipeline, Request, PITCH_CHANGE, INDEX_RATE, USE_INDEX
 
-def main():
+def build_parser():
     parser = argparse.ArgumentParser(description='Local text to cloned speech; source.wav, speech.wav, metrics.json')
     parser.add_argument('text', help='Spoken text; newlines create explicit pauses')
     parser.add_argument('--voice', required=True, help='Installed, authorized RVC voice folder')
     parser.add_argument('--source-voice', default='af_heart')
     parser.add_argument('--speed', type=float, default=1)
-    parser.add_argument('--pitch', type=int, default=0)
+    parser.add_argument('--pitch', type=int, default=PITCH_CHANGE, help='Semitones (default: +4); use 0 to preserve source pitch')
     parser.add_argument('--pause-ms', type=int, default=180)
-    parser.add_argument('--use-index', action='store_true')
+    parser.add_argument('--use-index', action=argparse.BooleanOptionalAction, default=USE_INDEX,
+                        help='Use retrieval when available (default: enabled); --no-use-index disables it')
+    parser.add_argument('--index-rate', type=float, default=INDEX_RATE, help='Retrieval blend (default: 0.75)')
     parser.add_argument('--rvc-python')
     parser.add_argument('--output-dir')
     parser.add_argument('--repeat', type=int, default=1, help='Repeated requests in one warm process')
+    return parser
+
+def main():
+    parser = build_parser()
     args = parser.parse_args()
     if args.repeat < 1:
         parser.error('--repeat must be positive')
