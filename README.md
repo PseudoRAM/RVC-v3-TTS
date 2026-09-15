@@ -1,5 +1,9 @@
 # RVC v3 TTS
 
+[Public source](https://github.com/PseudoRAM/RVC-v3-TTS) | [Private Replicate model: TTS RVC](https://replicate.com/pseudoram/tts-rvc)
+
+The Replicate model page is configured; a TTS Cog version has not been pushed yet.
+
 **Text -> Kokoro speech -> RVC voice conversion -> downloadable WAV.**
 This project takes text. It has no recorded-audio input examples or upload workflow.
 The generated TTS source is saved beside the converted output for comparison.
@@ -82,6 +86,7 @@ other target directories remain excluded.
 
 ```sh
 cog predict -i text="Hello, this began as text." -i voice=VCTK231
+cog push r8.im/pseudoram/tts-rvc
 python scripts/package_source.py
 python scripts/package_source.py --include-examples
 ```

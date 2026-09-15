@@ -1,3 +1,4 @@
+image: "r8.im/pseudoram/tts-rvc"
 build:
   gpu: true
   cuda: "11.8"
