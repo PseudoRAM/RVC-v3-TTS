@@ -95,3 +95,18 @@ The next build pins Cog 0.16.12 and uses BasePredictor.predict to restore
 the server's per-request output_file_prefix upload handling, absent from
 Cog 0.22's request schema. Hosted verification of this compatibility change
 is pending. All 18 unit and packaging tests pass.
+
+## Final hosted verification — 16 September 2026 UTC
+
+Workflow [35099297465](https://github.com/PseudoRAM/RVC-v3-TTS/actions/runs/35099297465)
+published source `b83c301` as `4f5a80c63f3ddcabc757e566dc6c42a55a18add6d6e65257a55f7a9e66568485`.
+The Cog 0.16.12 compatibility fix is verified: hosted file URLs, audio players
+and saved Replicate examples work for both English targets and expressive Qwen.
+All six downloaded WAVs are finite, non-silent and unclipped; metrics confirm
+pitch +4, use_index true and index_rate 0.75. See
+[hosted artifacts and timings](../examples/hosted/README.md).
+
+Custom ZIP input controls are live and validation/forwarding tests pass, but
+no hosted custom ZIP prediction was run because no approved public ZIP was
+available. Individual checkpoint and index assets remain pinned in the
+download script. Peak T4 memory was not measured.

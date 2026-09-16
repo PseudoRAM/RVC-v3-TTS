@@ -131,5 +131,13 @@ URLs are omitted from returned metrics so signed query parameters are not echoed
 
 CLI: `python cli.py "Hello from text." --custom-rvc-model-download-url "$MODEL_ZIP_URL"`
 
-The URL input is available in source; hosted availability requires publishing
-a new Cog version after the initial `463eb1fd` release.
+The URL and refresh inputs are live on Replicate. Input validation and forwarding
+are tested; a hosted third-party ZIP prediction has not yet been verified.
+
+## Hosted release
+
+Published with Cog 0.16.12, version `4f5a80c63f3ddcabc757e566dc6c42a55a18add6d6e65257a55f7a9e66568485`.
+[Play examples on Replicate](https://replicate.com/pseudoram/tts-rvc/examples)
+or inspect the [downloaded samples and metrics](examples/hosted/README.md).
+Both English targets and excited Qwen delivery passed on T4 with playable
+file outputs. Use Cog 0.16.12 for the verified hosted upload protocol.

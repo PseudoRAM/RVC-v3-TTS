@@ -1,0 +1,23 @@
+[
+  {
+    "example": "male",
+    "prediction": "https://replicate.com/p/61r3m6h54xrgc0d0n9hsw7sbc4",
+    "version": "4f5a80c63f3ddcabc757e566dc6c42a55a18add6d6e65257a55f7a9e66568485",
+    "synthetic_input": true,
+    "metrics": "male/metrics.json"
+  },
+  {
+    "example": "female",
+    "prediction": "https://replicate.com/p/pgpzyfspqhrgc0d0n9qbb1p2q4",
+    "version": "4f5a80c63f3ddcabc757e566dc6c42a55a18add6d6e65257a55f7a9e66568485",
+    "synthetic_input": true,
+    "metrics": "female/metrics.json"
+  },
+  {
+    "example": "expressive",
+    "prediction": "https://replicate.com/p/x87mgs6dksrgc0d0na2br50qxw",
+    "version": "4f5a80c63f3ddcabc757e566dc6c42a55a18add6d6e65257a55f7a9e66568485",
+    "synthetic_input": true,
+    "metrics": "expressive/metrics.json"
+  }
+]
