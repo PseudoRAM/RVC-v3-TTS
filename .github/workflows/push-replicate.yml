@@ -1,0 +1,54 @@
+name: Publish TTS RVC to Replicate
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-tts-rvc
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    env:
+      HF_HUB_DISABLE_XET: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Free space on the disposable hosted runner
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost
+          df -h /
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Validate source and download approved weights
+        run: |
+          python -m pip install -r requirements.txt huggingface_hub==0.36.0
+          python -m unittest discover -s tests -v
+          python scripts/download_tts.py
+          python scripts/download_rvc.py
+          python scripts/download_voices.py
+          python scripts/download_expressive.py
+          python scripts/verify_expressive_release.py
+      - name: Set up the tested Cog version
+        uses: replicate/setup-cog@8a5fea3c1818b6950dcf8027285f5a9b447c0c4a
+        with:
+          cog-version: v0.22.0
+          token: ${{ secrets.REPLICATE_CLI_AUTH_TOKEN }}
+      - name: Build and publish the private model
+        run: |
+          set -euo pipefail
+          cog build -t r8.im/pseudoram/tts-rvc
+          for attempt in 1 2 3; do
+            if cog push r8.im/pseudoram/tts-rvc; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1

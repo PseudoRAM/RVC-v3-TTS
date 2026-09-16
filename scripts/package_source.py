@@ -4,7 +4,7 @@ import zipfile
 import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
-ROOT_FILES = ['.gitignore', '.dockerignore', 'README.md', 'RESEARCH.md', 'LICENSE',
+ROOT_FILES = ['emotion.py', 'expressive.py', 'expressive_worker.py', 'requirements-expressive.txt', 'requirements-expressive-windows.lock', 'docs/EMOTION.md', '.gitignore', '.dockerignore', 'README.md', 'RESEARCH.md', 'LICENSE',
               'benchmark.py', 'cli.py', 'pipeline.py', 'rvc_worker.py', 'kokoro_adapter.py',
               'predict.py', 'cog.yaml', 'requirements.txt', 'requirements-rvc.txt',
               'requirements-tts-windows.lock', 'examples/README.md', 'examples/licenses/APACHE-2.0.txt', 'examples/licenses/VCTK-CC-BY-4.0.txt', 'examples/licenses/VCTK-model-card.md',

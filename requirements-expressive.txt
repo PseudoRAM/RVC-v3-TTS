@@ -1,0 +1,4 @@
+# Install torch/torchaudio 2.6.0 from the CUDA 12.4 index first (see docs/EMOTION.md).
+qwen-tts==0.1.1
+transformers==4.57.3
+accelerate==1.12.0

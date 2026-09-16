@@ -1,5 +1,6 @@
 import argparse
 import json
+from emotion import EMOTIONS, SPEAKERS
 from pipeline import Pipeline, Request, PITCH_CHANGE, INDEX_RATE, USE_INDEX
 
 def build_parser():
@@ -13,6 +14,12 @@ def build_parser():
     parser.add_argument('--use-index', action=argparse.BooleanOptionalAction, default=USE_INDEX,
                         help='Use retrieval when available (default: enabled); --no-use-index disables it')
     parser.add_argument('--index-rate', type=float, default=INDEX_RATE, help='Retrieval blend (default: 0.75)')
+    parser.add_argument('--engine', choices=['auto', 'kokoro', 'qwen'], default='auto')
+    parser.add_argument('--emotion', choices=EMOTIONS, default='neutral')
+    parser.add_argument('--intensity', type=float, default=.7, help='Prompt strength from 0 to 1; not a volume multiplier')
+    parser.add_argument('--instruct', default='', help='Custom acted delivery instructions (Qwen)')
+    parser.add_argument('--expressive-speaker', choices=SPEAKERS, default='Ryan')
+    parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--rvc-python')
     parser.add_argument('--output-dir')
     parser.add_argument('--repeat', type=int, default=1, help='Repeated requests in one warm process')

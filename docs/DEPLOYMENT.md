@@ -4,6 +4,35 @@ Date: 16 September 2026 (Australia/Sydney).
 
 ## Local release checks
 
+### Current defaults and expressive engine
+
+The current release candidate was built from the working source snapshot, including
+the new defaults and Qwen emotion controls. It is newer than the commit recorded in
+the original checks below. The local image config digest is
+`sha256:a564c57d92a16ebabcd4281339a1ac9948b8e51449e1bdac7413386b378697c2`.
+
+- All 17 unit and packaging tests passed.
+- Both approved English targets passed GPU container tests using pitch **+4**,
+  retrieval **enabled**, and index rate **0.75**.
+- A Cog API request that omitted those controls returned metrics confirming all
+  three defaults. It produced 3.14 seconds of finite, non-silent 40 kHz audio with
+  zero clipped samples in 1.84 seconds of local processing, excluding setup.
+- An expressive Qwen request also passed. A separate forced-float16 run checked
+  the precision path used when native bfloat16 is unavailable: 4.06 seconds of
+  converted audio, finite and non-silent with zero clipped samples. Processing
+  took 15.61 seconds, including 9.09 seconds of expressive model setup.
+- These checks ran locally on the RTX 4090. Forced float16 checks precision
+  compatibility; it does not establish T4 latency or memory use.
+- The final code layer explicitly excludes emulated bfloat16 support from the
+  precision check (`including_emulation=False`). A simulated T4 capability check
+  selected float16. Both English targets and expressive synthesis passed again
+  in that final image. Their audio remained finite, non-silent and unclipped.
+
+Publication and hosted T4 inference remain pending. Registry transfer progress
+alone does not mean a Replicate version is published.
+
+### Original Kokoro release checks
+
 Source commit: `a41501c`. Cog CLI: `0.22.0`. Linux GPU container with Python 3.10,
 an isolated RVC environment, PyTorch `2.0.1+cu118`, and CUDA available on an NVIDIA RTX 4090.
 

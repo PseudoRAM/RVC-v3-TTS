@@ -28,3 +28,5 @@ vendor/rvc-v3/rvc_models/**
 !vendor/rvc-v3/rvc_models/VCTK231/
 !vendor/rvc-v3/rvc_models/VCTK231/added_IVF1216_Flat_nprobe_1_Fp231rmvpe_v2.index
 !vendor/rvc-v3/rvc_models/VCTK231/Fp231rmvpe.pth
+
+**/.parts

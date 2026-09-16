@@ -60,7 +60,12 @@ class Defaults(unittest.TestCase):
         predictor = module.Predictor()
         predictor.pipeline = SimpleNamespace(run=Mock(return_value=(Path('output'), {})))
         for options, expected in [({}, (4, .75, True)),
-                                  ({'pitch': 0, 'index_rate': .5, 'use_index': False}, (0, .5, False))]:
+                                  ({'pitch': 0, 'index_rate': .5, 'use_index': False}, (0, .5, False)),
+                                  ({'emotion': 'yelling', 'intensity': 1., 'instruct': 'Urgent.', 'expressive_speaker': 'Aiden', 'seed': 123}, (4, .75, True))]:
             predictor.run('Hello', voice='VCTK226', **options)
             request = predictor.pipeline.run.call_args.args[0]
             self.assertEqual((request.pitch, request.index_rate, request.use_index), expected)
+
+            for key in ('emotion', 'intensity', 'instruct', 'expressive_speaker', 'seed'):
+                if key in options:
+                    self.assertEqual(getattr(request, key), options[key])

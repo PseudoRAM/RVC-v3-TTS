@@ -15,6 +15,7 @@ import uuid
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'vendor/rvc-v3/src'))
 from defaults import PITCH_CHANGE, INDEX_RATE, USE_INDEX
+from emotion import EMOTIONS, SPEAKERS, delivery_instruction
 
 @dataclass
 class Request:
@@ -27,7 +28,33 @@ class Request:
     use_index: bool = USE_INDEX
     index_rate: float = INDEX_RATE
 
+    engine: str = 'auto'
+    emotion: str = 'neutral'
+    intensity: float = .7
+    instruct: str = ''
+    expressive_speaker: str = 'Ryan'
+    seed: int = 42
+
+    @property
+    def resolved_engine(self):
+        if self.engine == 'auto':
+            return 'qwen' if self.emotion != 'neutral' or self.instruct.strip() else 'kokoro'
+        return self.engine
+
     def validate(self):
+        if self.engine not in ('auto', 'kokoro', 'qwen') or self.emotion not in EMOTIONS:
+            raise ValueError('Invalid TTS engine or emotion preset')
+        if not isinstance(self.instruct, str) or len(self.instruct) > 1000:
+            raise ValueError('Delivery instruction must be at most 1000 characters')
+        if not math.isfinite(self.intensity) or not 0 <= self.intensity <= 1:
+            raise ValueError('Emotion intensity must be 0–1')
+        if self.expressive_speaker not in SPEAKERS or not isinstance(self.seed, int) or not 0 <= self.seed < 2**32:
+            raise ValueError('Invalid expressive speaker or seed')
+        if self.resolved_engine == 'kokoro' and (self.emotion != 'neutral' or self.instruct.strip()):
+            raise ValueError('Kokoro cannot act emotions; choose engine=auto or qwen')
+        if self.resolved_engine == 'qwen' and self.speed != 1:
+            raise ValueError('Qwen uses delivery instructions for pace; keep speed=1 and describe pace in instruct')
+
         if not isinstance(self.text, str) or not self.text.strip() or len(self.text) > 3000:
             raise ValueError('Text must contain 1–3000 characters')
         if not math.isfinite(self.speed) or not 0.5 <= self.speed <= 2:
@@ -47,6 +74,7 @@ class Pipeline:
     def __init__(self, rvc_python=None, threads=4):
         self.lock = threading.Lock()
         self.worker = None
+        self.expressive = None
         started = time.perf_counter()
         import onnxruntime as ort
         from kokoro_adapter import CompatibleKokoro
@@ -88,11 +116,25 @@ class Pipeline:
             started = time.perf_counter()
             folder = Path(output_dir or ROOT/'demos'/uuid.uuid4().hex).resolve()
             folder.mkdir(parents=True, exist_ok=False)
+            expressive_setup = 0.0
+            instruction = ''
+            if request.resolved_engine == 'qwen':
+                from expressive import ExpressiveSource
+                if self.expressive is None:
+                    self.expressive = ExpressiveSource()
+                    expressive_setup = self.expressive.setup_seconds
+                instruction = delivery_instruction(request.emotion, request.intensity, request.instruct)
             parts = [p.strip() for p in request.text.split('\n') if p.strip()]
             chunks = []
             for part in parts:
-                samples, sr = self.tts.create(part, voice=request.source_voice, speed=request.speed,
-                    lang='en-gb' if request.source_voice.startswith('b') else 'en-us')
+                if request.resolved_engine == 'qwen':
+                    temporary = folder / '_expressive_chunk.wav'
+                    self.expressive.create(part, request.expressive_speaker, instruction, request.seed, temporary)
+                    samples, sr = sf.read(temporary, dtype='float32')
+                    temporary.unlink()
+                else:
+                    samples, sr = self.tts.create(part, voice=request.source_voice, speed=request.speed,
+                        lang='en-gb' if request.source_voice.startswith('b') else 'en-us')
                 if chunks:
                     chunks.append(np.zeros(round(sr*request.pause_ms/1000), dtype=np.float32))
                 chunks.append(samples)
@@ -117,6 +159,8 @@ class Pipeline:
             output, output_sr = sf.read(folder/'speech.wav')
             duration = len(output)/output_sr
             metrics = {'request': asdict(request), 'tts_seconds': tts_done-started,
+                'tts_engine': request.resolved_engine, 'delivery_instruction': instruction,
+                'expressive_setup_seconds': expressive_setup,
                 'rvc_and_copy_seconds': finished-tts_done, 'total_seconds': finished-started,
                 'source_duration_seconds': len(source)/sr, 'duration_seconds': duration,
                 'rtf': (finished-started)/duration, 'sample_rate': output_sr,
@@ -128,6 +172,9 @@ class Pipeline:
             return folder, metrics
 
     def close(self):
+        if getattr(self, 'expressive', None):
+            self.expressive.close()
+            self.expressive = None
         if self.worker:
             self.worker.stdin.close()
             try:

@@ -4,7 +4,7 @@
 
 The Replicate model is private. See its Versions tab for published releases.
 
-**Text -> Kokoro speech -> RVC voice conversion -> downloadable WAV.**
+**Text -> Kokoro or expressive Qwen3 speech -> RVC voice conversion -> downloadable WAV.**
 This project takes text. It has no recorded-audio input examples or upload workflow.
 The generated TTS source is saved beside the converted output for comparison.
 `v3` names the optimized service; checkpoints remain RVC v1/v2.
@@ -34,10 +34,13 @@ Each CLI result identifies a folder with `source.wav` (generated Kokoro speech),
 - Conversion defaults now match RVCV3: **pitch +4 semitones, retrieval enabled when available, index rate 0.75**. RMVPE, protect 0.33 and RMS mix 0.25 are unchanged.
 - Use `--pitch -24..24`, `--index-rate 0..1`, and `--no-use-index` to override the preset. `--pitch 0 --no-use-index` restores the old no-index behavior. These defaults were selected by listening to low-pitched narration; TTS source voices can need different shifts.
 - Historical VCTK examples retain explicit pitch 0 and index rate 0.5. The generated Kokoro source voice and speed remain independently adjustable.
-- [David Goggins generation benchmark](docs/TTS_GOGGINS_BENCHMARK.md) includes generated source/converted pairs and separate TTS/RVC timings.
 
-Kokoro does not offer semantic emotion or laughter tags. Delivery depends on source voice,
-punctuation and pace. RVC changes the source timbre; it does not add missing acted emotion.
+**Emotion control is available through the optional Qwen3-TTS source engine.**
+Use `--emotion yelling --intensity 1`, or choose calm, happy, sad, angry, excited or
+whispering. `--instruct` adds custom delivery direction. Auto mode selects Qwen for
+emotion requests and retains Kokoro for neutral requests. See [setup and examples](docs/EMOTION.md).
+Kokoro itself has no acted emotion control. Emotion is generated before RVC; the
+conversion may change its strength, so compare the saved source and output audio.
 
 ## Fresh setup
 
