@@ -82,3 +82,16 @@ cog run r8.im/pseudoram/tts-rvc -i text="Hello! This began as text." -i voice=VC
 
 The Cog CLI JSON response embeds returned files as data URLs; Replicate serves downloadable
 file URLs. Audio checks establish basic signal integrity, not a perceptual-quality score.
+
+## Hosted output compatibility follow-up
+
+Source `def3161` published as version
+`8d0ef4544cf7f03018a1ae8fc4dcdcf79b6e6575986d53ecfcef1a8fba72cb6d`.
+A male text-only prediction succeeded in 7.4 seconds of processing (3m56s
+including cold start). Saving to Examples succeeded, but audio remained
+unavailable in its preview: output files were embedded data URLs.
+
+The next build pins Cog 0.16.12 and uses BasePredictor.predict to restore
+the server's per-request output_file_prefix upload handling, absent from
+Cog 0.22's request schema. Hosted verification of this compatibility change
+is pending. All 18 unit and packaging tests pass.

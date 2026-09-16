@@ -39,7 +39,7 @@ jobs:
       - name: Set up the tested Cog version
         uses: replicate/setup-cog@8a5fea3c1818b6950dcf8027285f5a9b447c0c4a
         with:
-          cog-version: v0.22.0
+          cog-version: v0.16.12
           token: ${{ secrets.REPLICATE_CLI_AUTH_TOKEN }}
       - name: Build and publish the private model
         run: |

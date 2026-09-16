@@ -53,7 +53,7 @@ class Defaults(unittest.TestCase):
                 self.assertEqual(metrics['request']['index_rate'], request.index_rate)
 
     def test_cog_entrypoint_forwards_default_and_explicit_controls(self):
-        cog = SimpleNamespace(BaseRunner=object, BaseModel=object, Path=Path,
+        cog = SimpleNamespace(BasePredictor=object, BaseModel=object, Path=Path,
                               Input=lambda default=None, **kwargs: default)
         spec = importlib.util.spec_from_file_location('tts_predict_test', ROOT / 'predict.py')
         module = importlib.util.module_from_spec(spec)
@@ -66,7 +66,7 @@ class Defaults(unittest.TestCase):
                                   ({'pitch': 0, 'index_rate': .5, 'use_index': False}, (0, .5, False)),
                                   ({'custom_rvc_model_download_url': 'https://example.com/voice.zip', 'refresh_custom_model': True}, (4, .75, True)),
                                   ({'emotion': 'yelling', 'intensity': 1., 'instruct': 'Urgent.', 'expressive_speaker': 'Aiden', 'seed': 123}, (4, .75, True))]:
-            predictor.run('Hello', voice='VCTK226', **options)
+            predictor.predict('Hello', voice='VCTK226', **options)
             request = predictor.pipeline.run.call_args.args[0]
             self.assertEqual((request.pitch, request.index_rate, request.use_index), expected)
 
