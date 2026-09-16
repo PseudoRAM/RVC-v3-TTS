@@ -2,6 +2,20 @@
 
 Date: 16 September 2026 (Australia/Sydney).
 
+## Published release
+
+The [cloud build and push](https://github.com/PseudoRAM/RVC-v3-TTS/actions/runs/35079219375)
+succeeded on 16 September 2026 at 10:40 UTC from source commit
+`de273d580be61b213d352beb80f527d9716e02ff`. All 17 workflow tests passed.
+
+The private [Replicate model](https://replicate.com/pseudoram/tts-rvc) now has version
+`463eb1fdd994bc5984c3a08310d584c154982c4397f86d5ed9ba0da6158b7e64`.
+The live model is configured for Nvidia T4 and exposes pitch +4, retrieval enabled,
+index rate 0.75, and the expressive engine controls.
+
+Hosted inference verification is in progress. T4 output integrity, memory use,
+and timings are not yet verified.
+
 ## Local release checks
 
 ### Current defaults and expressive engine
@@ -28,8 +42,7 @@ the original checks below. The local image config digest is
   selected float16. Both English targets and expressive synthesis passed again
   in that final image. Their audio remained finite, non-silent and unclipped.
 
-Publication and hosted T4 inference remain pending. Registry transfer progress
-alone does not mean a Replicate version is published.
+Publication succeeded as recorded above; hosted T4 inference remains under verification.
 
 ### Original Kokoro release checks
 
