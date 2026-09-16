@@ -11,6 +11,7 @@ import sys
 import threading
 import time
 import uuid
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / 'vendor/rvc-v3/src'))
@@ -34,6 +35,8 @@ class Request:
     instruct: str = ''
     expressive_speaker: str = 'Ryan'
     seed: int = 42
+    custom_rvc_model_download_url: str = ""
+    refresh_custom_model: bool = False
 
     @property
     def resolved_engine(self):
@@ -63,11 +66,17 @@ class Request:
             raise ValueError('Pitch must be -24–24; pause must be 0–2000 ms')
         if not math.isfinite(self.index_rate) or not 0 <= self.index_rate <= 1:
             raise ValueError('Index rate must be 0–1')
+        if self.custom_rvc_model_download_url:
+            parsed = urlsplit(self.custom_rvc_model_download_url)
+            if parsed.scheme not in ("http", "https") or not parsed.hostname:
+                raise ValueError("Custom model URL must be an HTTP or HTTPS ZIP URL")
+        elif self.refresh_custom_model:
+            raise ValueError("Refreshing a custom model requires a custom model URL")
         if not re.fullmatch(r'[A-Za-z0-9_-]+', self.voice):
             raise ValueError('Invalid RVC voice name')
         if not re.fullmatch(r'[ab][fm]_[a-z]+', self.source_voice):
             raise ValueError('Choose an English Kokoro source voice')
-        if self.voice in ('AisoHowatto', 'AisoSittori') and (self.pitch != 0 or self.use_index):
+        if not self.custom_rvc_model_download_url and self.voice in ('AisoHowatto', 'AisoSittori') and (self.pitch != 0 or self.use_index):
             raise ValueError('AISO checkpoints have no pitch guidance and use no retrieval index; set pitch=0 and use_index=False')
 
 class Pipeline:
@@ -145,6 +154,8 @@ class Pipeline:
             sf.write(source_path, source, sr, subtype='PCM_16')
             tts_done = time.perf_counter()
             self.worker.stdin.write(json.dumps({'input_audio': str(source_path), 'rvc_model': request.voice,
+                'custom_url': request.custom_rvc_model_download_url or None,
+                'refresh': request.refresh_custom_model,
                 'pitch_change': request.pitch, 'use_index': request.use_index,
                 'index_rate': request.index_rate})+'\n')
             self.worker.stdin.flush()
@@ -158,7 +169,9 @@ class Pipeline:
             finished = time.perf_counter()
             output, output_sr = sf.read(folder/'speech.wav')
             duration = len(output)/output_sr
-            metrics = {'request': asdict(request), 'tts_seconds': tts_done-started,
+            request_metrics = asdict(request)
+            request_metrics['custom_rvc_model_download_url'] = '[provided]' if request.custom_rvc_model_download_url else ''
+            metrics = {'request': request_metrics, 'tts_seconds': tts_done-started,
                 'tts_engine': request.resolved_engine, 'delivery_instruction': instruction,
                 'expressive_setup_seconds': expressive_setup,
                 'rvc_and_copy_seconds': finished-tts_done, 'total_seconds': finished-started,

@@ -114,3 +114,22 @@ Apache 2.0 as declared in the model card. Training corpus: Yamagishi, Veaux and 
 [Terms and attribution](docs/ASSET_PERMISSIONS.md) accompany the generated examples;
 [upstream notices](examples/licenses/) are included in the release. Model provenance does
 not independently verify individual speaker releases or imply endorsement.
+
+## Custom RVC checkpoint URLs
+
+Set `custom_rvc_model_download_url` to an HTTP(S) ZIP download URL, matching
+the RVC v3 input. The archive must contain exactly one `.pth` checkpoint and
+optionally one `.index` file; nested folders are supported. This overrides the
+built-in `voice` selection. Speech input remains text only.
+
+Set `refresh_custom_model=true` to redownload a cached ZIP. The worker caches
+up to four downloads for 24 hours, with a 1 GiB download/extracted-model limit.
+Without an index, conversion runs without retrieval even when `use_index=true`.
+Use only checkpoints from trusted sources that you have permission to use;
+custom model licenses and permissions are separate from the bundled examples.
+URLs are omitted from returned metrics so signed query parameters are not echoed.
+
+CLI: `python cli.py "Hello from text." --custom-rvc-model-download-url "$MODEL_ZIP_URL"`
+
+The URL input is available in source; hosted availability requires publishing
+a new Cog version after the initial `463eb1fd` release.

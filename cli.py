@@ -6,7 +6,7 @@ from pipeline import Pipeline, Request, PITCH_CHANGE, INDEX_RATE, USE_INDEX
 def build_parser():
     parser = argparse.ArgumentParser(description='Local text to cloned speech; source.wav, speech.wav, metrics.json')
     parser.add_argument('text', help='Spoken text; newlines create explicit pauses')
-    parser.add_argument('--voice', required=True, help='Installed, authorized RVC voice folder')
+    parser.add_argument('--voice', default='VCTK226', help='Installed, authorized RVC voice folder')
     parser.add_argument('--source-voice', default='af_heart')
     parser.add_argument('--speed', type=float, default=1)
     parser.add_argument('--pitch', type=int, default=PITCH_CHANGE, help='Semitones (default: +4); use 0 to preserve source pitch')
@@ -20,6 +20,8 @@ def build_parser():
     parser.add_argument('--instruct', default='', help='Custom acted delivery instructions (Qwen)')
     parser.add_argument('--expressive-speaker', choices=SPEAKERS, default='Ryan')
     parser.add_argument('--seed', type=int, default=42)
+    parser.add_argument('--custom-rvc-model-download-url', default='', help='Trusted ZIP URL with one authorized .pth checkpoint and optional .index; overrides --voice')
+    parser.add_argument('--refresh-custom-model', action='store_true', help='Redownload the custom voice ZIP')
     parser.add_argument('--rvc-python')
     parser.add_argument('--output-dir')
     parser.add_argument('--repeat', type=int, default=1, help='Repeated requests in one warm process')
